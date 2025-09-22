@@ -2,6 +2,7 @@ package com.MongoSpring.MongoSpring.Model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -12,18 +13,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class Student {
 
+    @Transient
+    public static final String SEQUENCE_NAME = "Students_sequence";
+
     @Id
-    private  Integer rollno;
+    private  Long rollno;
 
     private String name;
 
     private String address;
 
-    public Integer getRollno() {
+    public Long getRollno() {
         return rollno;
     }
 
-    public void setRollno(Integer rollno) {
+    public void setRollno(Long rollno) {
         this.rollno = rollno;
     }
 
