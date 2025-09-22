@@ -19,4 +19,9 @@ public class StudentDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    public StudentDto(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 }
