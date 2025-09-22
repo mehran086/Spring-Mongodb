@@ -1,7 +1,9 @@
 package com.MongoSpring.MongoSpring.Repository;
 
 import com.MongoSpring.MongoSpring.Model.Student;
+import com.MongoSpring.MongoSpring.Model.StudentDto;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
@@ -48,4 +50,25 @@ public interface StudentRepo extends MongoRepository<Student,Long> {
 
     // Find students by name containing keyword, ordered by rollno descending
     List<Student> findByNameContainingOrderByRollnoDesc(String keyword);
+
+
+
+
+
+
+    // 1️ Custom query to return only name and address by rollno
+    @Query(value = "{ 'rollno' : ?0 }", fields = "{ 'name' : 1, 'address' : 1, '_id' : 0 }")
+    StudentDto findNameAndAddressByRollno(Long rollno);
+
+    // 2️ Custom query to return all students in a specific city/address
+    @Query(value = "{ 'address' : ?0 }", fields = "{ 'name' : 1, 'address' : 1, '_id' : 0 }")
+    List<StudentDto> findAllByAddress(String address);
+
+    // 3️ Custom query using regex to find students by name containing keyword
+    @Query(value = "{ 'name' : { $regex: ?0, $options: 'i' } }", fields = "{ 'name' : 1, 'address' : 1, '_id' : 0 }")
+    List<StudentDto> findByNameContainingIgnoreCase(String keyword);
+
+    // Return all students with only name and address
+    @Query(value = "{}", fields = "{ 'name' : 1, 'address' : 1, '_id' : 0 }")
+    List<StudentDto> findAllStudentNameAddress();
 }

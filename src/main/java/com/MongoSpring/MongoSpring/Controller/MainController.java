@@ -3,6 +3,7 @@ package com.MongoSpring.MongoSpring.Controller;
 
 import com.MongoSpring.MongoSpring.Model.DatabaseSequence;
 import com.MongoSpring.MongoSpring.Model.Student;
+import com.MongoSpring.MongoSpring.Model.StudentDto;
 import com.MongoSpring.MongoSpring.Repository.StudentRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,4 +138,8 @@ public class MainController {
     }
 
 
+    @GetMapping("/getallStudents")
+    public List<StudentDto> getAllStudents() {
+        return repo.findAllStudentNameAddress();
+    }
 }
